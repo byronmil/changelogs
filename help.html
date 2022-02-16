@@ -1,0 +1,78 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>Evalute Timestamps</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+
+  <meta name="theme-color" content="#fafafa">
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_utc)</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <header>
+    <div style="text-align: center;">
+      <img src="img/clock-icon.png" width="50" height="50">
+      <h1>Evaluate Timestamps</h1>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div>
+        <p><sub><a href="index.html">Back to Calculator</a></sub></p>
+        <h1>Help Guide</h1>
+        <p>Timestamps are in seconds. Now = "now, this second."<p>
+        <p>There are 86400 seconds in a day. Subtracting 86400 from a timestamp will give you a timestamp exactly one day prior.</p><br>
+        <h2>Condition Guide</h2>
+        <p><strong>is a relative timestamp after one week ago</strong><br>
+          <em>"Timestamp is after last week"</em><br>
+        </p><br>
+        <p><strong>is a relative timestamp before one week from now</strong><br>
+          <em>"Timestamp is before next week"</em><br>
+        </p><br>
+        <p><strong>Timestamp within the next 24 hours (1 to 86400 seconds from now)</strong><br>
+          <em>"Timestamp is between now and this time tomorrow"</em><br></p>
+          <ul>
+            <li><p>is a timestamp before 1 day from now</p></li>
+            <li></p>is a timestamp after now</li></li>
+          </ul>
+        <p><strong>Timestamp within the previous 24 hours  (1 to 86400 seconds before now)</strong><br>
+          <em>"Timestamp is between now and this time yesterday"</em><br></p>
+          <ul>
+            <li><p>is a timestamp before now</p></li>
+            <li><p>is a timestamp after 1 day ago</p></li>
+          </ul>
+    </div>
+  </section>
+</main>
+<footer>
+  <div>
+  </div>
+</footer>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+</html>

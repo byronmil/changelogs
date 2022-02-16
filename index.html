@@ -1,0 +1,170 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Evalute Timestamps</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="Evaluate Timestamps">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
+
+  <meta name="theme-color" content="#111">
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_utc)</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+  <header>
+    <div style="text-align: center;">
+      <img class="header-fade" src="img/clock-icon.png" width="60" height="60">
+      <h1 class="header-fade">Evaluate Timestamps</h1>
+    </div>
+  </header>
+  <main>
+    <section class="fill-height">
+      <div>
+        <div class="flex-me-spaced">
+          <span><p><sub><a type="button" id="preFillts">Test Data</a></sub><sub><a type="button" id="preFill-clear">Clear Data</a></sub></p></span>
+          <span><sub><a href="help.html">Help Guide</a></sub></span>
+          <span><p><sub>All time in local time</sub></p></span>
+        </div>
+        <div class="flex-me-spaced">
+        <h2>Current Unix epoch time: <span id="timestamp-now"></span></h2>
+        <h3><span id='datetime-human'></span></h3>
+      </div>
+        <hr>
+        <form class="timestamp-form">
+          <h2>Convert date to Unix</h2>
+          <sub>Converts to 12:00:00 AM local time</sub><br>
+          <label for="tsconvert"  class="nodisplay">Convert date to Unix:</label>
+          <input value="" type="date" id="tsconvert" name="tsconvert" max="2999-12-31"><!-- Y3K bug incoming. here to limit input to four characters, didn't feel like going with 9999--> <span style="display: inline; font-size: 1.25em;" id="date-converted-unix"></span><br> 
+          <sup>Selecting a date populates `compare` input below</sup>
+        </form>
+        <hr>
+        <form class="timestamp-form">
+          <h2>Timestamps to evaluate:</h2>
+          <label for="ts1" class="nodisplay">Timestamp 1</label>
+          <input value="" type="number" id="ts1" name="s1" placeholder="Timestamp 1" maxlength="10">
+          <label for="ts2" class="nodisplay">Timestamp 2</label>
+          <input value="" type="number" id="ts2" name="ts2" placeholder="Timestamp 2" maxlength="10">
+          <label for="ts3" class="nodisplay">Timestamp 3</label>
+          <input value="" type="number" id="ts3" name="ts3" placeholder="Timestamp 3" maxlength="10"><br>
+          <h2>Compare to timestamp:<br></h2>
+          <label for="tscompare"  class="nodisplay">Compare timestamps 1-3 to:</label>
+          <input value="" type="number" id="tscompare" name="tscompare" maxlength="10"><br>
+          <sup style="margin-left: .25em;">
+            <a type="button" id="add-day" tabindex="0">Add 1 day</a>
+            <a type="button" id="sub-day" tabindex="0">Subtract 1 day</a>
+            <a type="button" id="add-week" tabindex="0">Add 1 Week</a>
+            <a type="button" id="sub-week" tabindex="0">Subtract 1 Week</a>
+          </sup>
+          <br><br>
+          <input id='calculate' type='button' value='Calculate'>
+        </form>
+      </div>
+      <div class="calculated">
+        <div class="flex-me-spaced">
+          <h2>Snapshot</h2>
+        </div>
+          <div class="flex-me-spaced">
+            <span><p><strong>Now Unix: </strong><span id="timestamp-snapshot"></span></p>
+            <p><strong>Now Human: </strong><span id="timestamp-snapshot-human"></span></p></span>
+            <span>
+            <p><strong>Compared Unix: </strong><span id="timestamp-snapshot-compared"></span></p>
+            <p><strong>Compared Human: </strong><span id="timestamp-snapshot-compared-human"></span></p>
+          </span>
+          </div>
+          <hr>
+          <div class="flex-me">
+            <span><strong>Timestamp 1</strong></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-1-input"></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-1-input-human"></span>
+          </div>
+        <ul>
+          <li><span id="total1" name="total1"></span> <span id="before-after-comp-1"></span></li>
+          <li><span id="total1-now" name="total1-now"></span> <span id="before-after-now-1"></span></li>
+          <li>is a relative timestamp <span id="ago-beforeAfter-1"></span> one week ago</li>
+          <li>is a relative timestamp <span id="from-beforeAfter-1">before or after</span> one week from now</li>
+        </ul>
+          <div class="flex-me">
+            <span><strong>Timestamp 2</strong></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-2-input"></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-2-input-human"></span>
+          </div>
+        <ul>
+          <li><span id="total2" name="total2"></span> <span id="before-after-comp-2"></span></li>
+          <li><span id="total2-now" name="total2-now"></span> <span id="before-after-now-2"></span></li>
+          <li>is a relative timestamp <span id="ago-beforeAfter-2"></span> one week ago</li>
+          <li>is a relative timestamp <span id="from-beforeAfter-2"></span> one week from now</li>
+        </ul>
+          <div class="flex-me">
+            <span><strong>Timestamp 3</strong></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-3-input"></span>
+            <span class="separator"><strong>|</strong></span>
+            <span id="timestamp-3-input-human"></span>
+          </div>
+        <ul>
+          <li><span id="total3" name="total3"></span> <span id="before-after-comp-3"></span></li>
+          <li><span id="total3-now" name="total3-now"></span> <span id="before-after-now-3"></span></li>
+          <li>is a relative timestamp <span id="ago-beforeAfter-3"></span> one week ago</li>
+          <li>is a relative timestamp <span id="from-beforeAfter-3"></span> one week from now</li>
+        </ul>
+    </div>
+  </section>
+  <!--
+  <section class="fill-height">
+    <div class="flex-me-spaced">
+      <form>
+        <h2>Condition Builder</h2>
+        <label>I want to...</label>
+        <select>
+          <option>match timestamps within the next 24 hours</option>
+          <option>match timestamps within the previous 24 hours</option>
+          <option>match timestamps within the next week</option>
+          <option>match timestamps within the past week</option>
+        </select>
+      </form>
+    </div>
+  </section>
+  -->
+</main>
+<footer>
+  <div class="notes">
+    <p><strong>To do list:</strong></p>
+    <ul>
+      <li>Handle null & NaN values</li>
+      <li>Consider refactoring and using dayjs</li>
+    </ul>
+  </div>
+</footer>
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+</html>
