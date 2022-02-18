@@ -255,6 +255,10 @@ select {
   color: #fff;
   font-weight: 300;
 }
+option {
+  height: 2em !important;
+  padding: 1em !important;
+}
 ul {
   margin: 0 0 2em;
 }
