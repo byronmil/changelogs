@@ -15,6 +15,7 @@ html {
   color: #fff;
   font-size: 1em;
   line-height: 1.4;
+  min-height: 100%;
 }
 
 /*
@@ -154,6 +155,9 @@ div {
 .calculated-on {
   display: flex;
   animation: fadeIn ease-in 1s;
+}
+.disclaimer {
+  font-size: .85em;
 }
 a { 
   color: #999;
