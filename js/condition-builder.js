@@ -7,8 +7,8 @@ document.getElementById('condition-submit').addEventListener('click', function()
   var option2 = "Send a reminder 24 hours after a timestamp";
   var option3 = "Send a reminder 1 week before a timestamp";
   var option4 = "Send a reminder 1 week after a timestamp";
-  var option5 = "Group people within the past 24 hours";
-  var option6 = "Group people within the next 24 hours";
+  var option5 = "Group timestamps within the past 24 hours";
+  var option6 = "Group timestamps within the next 24 hours";
   var option0Condition = "Select an option";
   var option1Condition = "<h3>Condition 1: timestamp is between 24 hours from `now` and 48 hours from `now`</h3><ul><li>is a timestamp after a relative date of 1 day from `now`</li><li>is a timestamp before a relative date of 2 days from `now`</li></ul>";
   var option2Condition = "<h3>Condition 1: timestamp is between 24 hours ago and 48 hours ago</h3><ul><li>is a timestamp before a relative date of 1 day ago</li><li>is a timestamp after a relative date of 2 days ago</li></ul>";
