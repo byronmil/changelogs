@@ -15,7 +15,6 @@ html {
   color: #fff;
   font-size: 1em;
   line-height: 1.4;
-  min-height: 100%;
 }
 
 /*
@@ -90,6 +89,7 @@ html {
   font-family: 'Roboto', sans-serif;
   font-weight: 100;
   max-width: 100%;
+  min-height: 100%;
 }
 header, main, footer {
   clear: both;
