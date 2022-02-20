@@ -1,4 +1,4 @@
-// Submit condition examples WIP
+// Display conditions per selection
 document.getElementById('condition-submit').addEventListener('click', function() {
   document.getElementById("condition-result").innerText = "";
   var optionSelected = document.getElementById("option-select").value;

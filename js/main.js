@@ -179,7 +179,6 @@ document.getElementById('calculate').addEventListener('click', function() {
      else {
         tscompareResult3.textContent = beforeComp;
     }
-
   var tsnowResult1 = document.getElementById('before-after-now-1');
     if (ts1 > tsnow) {
         tsnowResult1.textContent = afterNow;
@@ -268,16 +267,11 @@ function secondsToDhms(seconds) {
   const date1 = dayjs('ts1')
   date1.diff('tsnow', 'month') // 7
   seconds = Number(seconds);
-  //var y = Math.floor(seconds / (3600*24*365));
-  //var M = Math.floor(seconds / (3600*24*52));
-  // Weeks might not be accurate over 1 year maybe 31556952 365.2425days
   var w = Math.floor(seconds % (3600*24*31536000) / 604800);
   var d = Math.floor(seconds % (3600*24*7) / 86400);
   var h = Math.floor(seconds % (3600*24) / 3600);
   var m = Math.floor(seconds % 3600 / 60);
   var s = Math.floor(seconds % 60);
-  //var yDisplay = y > 0 ? y + (y == 1 ? " year, " : " years, " ) : "";
-  //var MDisplay = M > 0 ? M + (M == 1 ? " month, " : " months, " ) : "";
   var wDisplay = w > 0 ? w + (w == 1 ? " week, " : " weeks, ") : "";
   var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
   var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
@@ -286,7 +280,7 @@ function secondsToDhms(seconds) {
   return (wDisplay + dDisplay + hDisplay + mDisplay + sDisplay).replace(/,\s*$/, "");
 };
 
-// Add or subtract day or week from compare timestamp
+// Add or subtract day/week from compare timestamp
 $(function () {
     $("#add-day").click(function () {
       var identifyMe = document.getElementById("tscompare").value;
