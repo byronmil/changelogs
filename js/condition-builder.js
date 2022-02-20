@@ -10,12 +10,12 @@ document.getElementById('condition-submit').addEventListener('click', function()
   var option5 = "Group timestamps within the past 24 hours";
   var option6 = "Group timestamps within the next 24 hours";
   var option0Condition = "Select an option";
-  var option1Condition = "<h3>Condition 1: timestamp is between 24 hours from `now` and 48 hours from `now`</h3><ul><li>is a timestamp after a relative date of 1 day from `now`</li><li>is a timestamp before a relative date of 2 days from `now`</li></ul>";
-  var option2Condition = "<h3>Condition 1: timestamp is between 24 hours ago and 48 hours ago</h3><ul><li>is a timestamp before a relative date of 1 day ago</li><li>is a timestamp after a relative date of 2 days ago</li></ul>";
-  var option3Condition = "<h3>Conditions:</h3><ul><li>Is a timestamp after a relative date of of 7 day from `now`</li><li>is a timestamp before a relative date of of 8 days from `now`</li></ul>";
-  var option4Condition = "<h3>Conditions:</h3><ul><li>Is a timestamp before a relative date of of 7 day ago</li><li>Is a timestamp after a relative date of of 8 days ago</li></ul>";
-  var option5Condition = "<h3>Condition: timestamp is between `now` and 24 hours ago</h3><ul><li>is a timestamp before a relative date of `now`</li><li>is a timestamp after a relative date 1 days ago</li></ul>";
-  var option6Condition = "<h3>Condition: timestamp is between `now` and 24 hours from `now`</h3><ul><li>is a timestamp after a relative date of `now`</li><li>is a timestamp before a relative date 1 days from `now`</li></ul>";
+  var option1Condition = "<p><em>timestamp is between 24 hours from `now` and 48 hours from `now`</em></p><h3>Condition</h3><ul><li>is a timestamp after a relative date of 1 day from `now`</li><li>is a timestamp before a relative date of 2 days from `now`</li></ul>";
+  var option2Condition = "<p><em>timestamp is between 24 hours ago and 48 hours ago</em><h3>Condition</h3><ul><li>is a timestamp before a relative date of 1 day ago</li><li>is a timestamp after a relative date of 2 days ago</li></ul>";
+  var option3Condition = "<p>Limits timestamps to a 24 hour range one week from now</p><p><em>timestamp is after 7 days from `now` (next week) and before 8 days from `now`</em></p><h3>Condition</h3><ul><li>Is a timestamp after a relative date of of 7 day from `now`</li><li>is a timestamp before a relative date of of 8 days from `now`</li></ul>";
+  var option4Condition = "<p>Limits timestamps to a 24 hour range one week ago</p><p><em>timestamp is before 7 days ago (last week) and after 8 days ago</em></p><h3>Condition</h3><ul><li>Is a timestamp before a relative date of of 7 day ago</li><li>Is a timestamp after a relative date of of 8 days ago</li></ul>";
+  var option5Condition = "<p><em>timestamp is between `now` and 24 hours ago</em></p><h3>Condition</h3><ul><li>is a timestamp before a relative date of `now`</li><li>is a timestamp after a relative date 1 days ago</li></ul>";
+  var option6Condition = "<p><em>timestamp is between `now` and 24 hours from `now`</em></p><h3>Condition</h3><ul><li>is a timestamp after a relative date of `now`</li><li>is a timestamp before a relative date 1 days from `now`</li></ul>";
   if (optionSelected === option0) {
     document.getElementById("condition-result").innerHTML += option0Condition;
     } else if (optionSelected === option1) {
