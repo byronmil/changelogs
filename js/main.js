@@ -1,305 +1,263 @@
-// Get Unix timestamp & update every second
-$(document).ready(
-  function convert(){
-    setInterval(function() {
-    // Current unix timestamp, refresh every second
-    var dt =  Math.floor(new Date() / 1000);
-    document.getElementById('timestamp-now').textContent=dt;
-    // Unix to human
-    var unixtimestamp = Math.floor(new Date() / 1000);
-    var months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var date = new Date(unixtimestamp*1000);
-    var year = date.getFullYear();
-    var month = months_arr[date.getMonth()];
-    var day = date.getDate();
-    var hours = date.getHours();
-    var minutes = "0" + date.getMinutes();
-    var seconds = "0" + date.getSeconds();
-    // Display date time in MM-dd-yyyy h:m:s format
-    var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    document.getElementById('datetime-human').textContent = convdataTime;
-  }, 1000);
-});
+//  Todo:
+//    - Figure out how to quickly add output file. Currently requires some modification
+//    - Expand for other campaign-types
 
-// Test Data - Randomize by today's date within limited range.
-document.getElementById('preFillts').addEventListener('click', function random() {
-  var todayDate = new Date();
-  var todayDateUnix = Math.round(new Date(todayDate).getTime() / 1000);
-  // 6mo - 1.5 years ago
-  var ts1maximum = todayDateUnix - 15778463;
-  var ts1minimum = todayDateUnix - 47335389;
-  var ts1random = Math.floor(Math.random() * (ts1maximum - ts1minimum + 1)) + ts1minimum;
-  // +1 month / -3months month
-  var ts2maximum = todayDateUnix + 2629743;
-  var ts2minimum = todayDateUnix - 7889229;
-  var ts2random = Math.floor(Math.random() * (ts2maximum - ts2minimum + 1)) + ts2minimum;
-  // +/- 1 week
-  var ts3maximum = todayDateUnix + 604800;
-  var ts3minimum = todayDateUnix - 604800;
-  var ts3random = Math.floor(Math.random() * (ts3maximum - ts3minimum + 1)) + ts3minimum;
-  // +1 month to -3 months
-  var tscomparemaximum = todayDateUnix + 2629743;
-  var tscompareminimum = todayDateUnix - 7889229;
-  var tscomparerandom = Math.floor(Math.random() * (tscomparemaximum - tscompareminimum + 1)) + tscompareminimum;
-  document.getElementById("ts1").value = ts1random;
-  document.getElementById("ts2").value = ts2random;
-  document.getElementById("ts3").value = ts3random;
-  document.getElementById("tscompare").value = tscomparerandom;
-});
-
-// Clear data
-$(function () {
-    $("#preFill-clear").click(function () {
-      document.getElementById("ts1").value = "";
-      document.getElementById("ts2").value = "";
-      document.getElementById("ts3").value = "";
-      document.getElementById("tscompare").value = "";
-    });
-});
-
-// Calculate against compared timestamp & 'now'
-document.getElementById('calculate').addEventListener('click', function() {
-  $(".calculated").switchClass("calculated", "calculated-on");
-  $("html, body").animate({ scrollTop: '180px' }, "slow");
-  var tsnow = Math.floor(new Date() / 1000);
-  var tsnow = +tsnow;
-  var tscompare = document.getElementById("tscompare").value;
-  var tscompare = +tscompare;
-  var ts1 = document.getElementById("ts1").value;
-  var ts1 = +ts1;
-  var ts2 = document.getElementById("ts2").value;
-  var ts2 = +ts2;
-  var ts3 = document.getElementById("ts3").value;
-  var ts3 = +ts3;
-  var total1 = Math.abs((tscompare - ts1));
-  document.getElementById("total1").textContent = secondsToDhms(total1);
-  var total2 = Math.abs((tscompare - ts2));
-  document.getElementById("total2").textContent = secondsToDhms(total2);
-  var total3 = Math.abs((tscompare - ts3));
-  document.getElementById("total3").textContent = secondsToDhms(total3);
-  var total1now = Math.abs((tsnow - ts1));
-  document.getElementById("total1-now").textContent = secondsToDhms(total1now);
-  var total2now = Math.abs((tsnow - ts2));
-  document.getElementById("total2-now").textContent = secondsToDhms(total2now);
-  var total3now = Math.abs((tsnow - ts3));
-  document.getElementById("total3-now").textContent = secondsToDhms(total3now);
-  var tsnow = Math.floor(new Date() / 1000);
-  document.getElementById("timestamp-snapshot").textContent = tsnow;
-  var unixtimestamp = Math.floor(new Date() / 1000);
-  var months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var date = new Date(unixtimestamp*1000);
-  var year = date.getFullYear();
-  var month = months_arr[date.getMonth()];
-  var day = date.getDate();
-  var hours = date.getHours();
-  var minutes = "0" + date.getMinutes();
-  var seconds = "0" + date.getSeconds();
-  // Display date time in MM-dd-yyyy h:m:s format
-  var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  document.getElementById("timestamp-snapshot-human").textContent = convdataTime;
-
-  // print input timestamps on results
-  document.getElementById("timestamp-1-input").textContent = ts1;
-  document.getElementById("timestamp-2-input").textContent = ts2;
-  document.getElementById("timestamp-3-input").textContent = ts3;
-  document.getElementById("timestamp-snapshot-compared").textContent = tscompare;
-
-  // Compared to Human
-  var dateTimeComp = new Date(tscompare*1000);
-  var year = dateTimeComp.getFullYear();
-  var month = months_arr[dateTimeComp.getMonth()];
-  var day = dateTimeComp.getDate();
-  var hours = dateTimeComp.getHours();
-  var minutes = "0" + dateTimeComp.getMinutes();
-  var seconds = "0" + dateTimeComp.getSeconds();
-  var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  document.getElementById("timestamp-snapshot-compared-human").textContent = convdataTime;
-  // TS1 to Human
-  var dateTs1 = new Date(ts1*1000);
-  var year = dateTs1.getFullYear();
-  var month = months_arr[dateTs1.getMonth()];
-  var day = dateTs1.getDate();
-  var hours = dateTs1.getHours();
-  var minutes = "0" + dateTs1.getMinutes();
-  var seconds = "0" + dateTs1.getSeconds();
-  var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  document.getElementById("timestamp-1-input-human").textContent = convdataTime;
-  // TS2 to Human
-  var dateTs2 = new Date(ts2*1000);
-  var year = dateTs2.getFullYear();
-  var month = months_arr[dateTs2.getMonth()];
-  var day = dateTs2.getDate();
-  var hours = dateTs2.getHours();
-  var minutes = "0" + dateTs2.getMinutes();
-  var seconds = "0" + dateTs2.getSeconds();
-  var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  document.getElementById("timestamp-2-input-human").textContent = convdataTime;
-  // TS3 to Human
-  var dateTs3 = new Date(ts3*1000);
-  var year = dateTs3.getFullYear();
-  var month = months_arr[dateTs3.getMonth()];
-  var day = dateTs3.getDate();
-  var hours = dateTs3.getHours();
-  var minutes = "0" + dateTs3.getMinutes();
-  var seconds = "0" + dateTs3.getSeconds();
-  var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-  document.getElementById("timestamp-3-input-human").textContent = convdataTime;
-
-  // Update text for evaluation
-  var afterComp = "after the commpared timestamp";
-  var beforeComp = "before the compared timestamp";
-  var equalComp = "equal to the compared timestamp"
-  var afterNow = "from now";
-  var beforeNow = "before now";
-  var equalNow = "equal to now";
-  var tscompareResult1 = document.getElementById('before-after-comp-1');
-    if (ts1 > tscompare) {
-        tscompareResult1.textContent = afterComp;
-    } else if (ts1 === tscompare) {
-        tscompareResult1.textContent = equalComp;
-       }
-     else {
-        tscompareResult1.textContent = beforeComp;
-    }
-  var tscompareResult2 = document.getElementById('before-after-comp-2');
-    if (ts2 > tscompare) {
-        tscompareResult2.textContent = afterComp;
-    } else if (ts2 === tscompare) {
-        tscompareResult2.textContent = equalComp;
-       }
-     else {
-        tscompareResult2.textContent = beforeComp;
-    }
-  var tscompareResult3 = document.getElementById('before-after-comp-3');
-    if (ts3 > tscompare) {
-        tscompareResult3.textContent = afterComp;
-    } else if (ts3 === tscompare) {
-        tscompareResult3.textContent = equalComp;
-       }
-     else {
-        tscompareResult3.textContent = beforeComp;
-    }
-  var tsnowResult1 = document.getElementById('before-after-now-1');
-    if (ts1 > tsnow) {
-        tsnowResult1.textContent = afterNow;
-    } else if (ts1 === tsnow) {
-        tsnowResult1.textContent = equalNow;
-       }
-     else {
-        tsnowResult1.textContent = beforeNow;
-    }
-  var tsnowResult2 = document.getElementById('before-after-now-2');
-    if (ts2 > tsnow) {
-        tsnowResult2.textContent = afterNow;
-    } else if (ts2 === tsnow) {
-        tsnowResult2.textContent = equalNow;
-       }
-     else {
-        tsnowResult2.textContent = beforeNow;
-    }
-  var tsnowResult3 = document.getElementById('before-after-now-3');
-    if (ts3 > tsnow) {
-        tsnowResult3.textContent = afterNow;
-    } else if (ts3 === tsnow) {
-        tsnowResult3.textContent = equalNow;
-       }
-     else {
-        tsnowResult3.textContent = beforeNow;
-    };
-
-  var whatDate = Math.round((new Date()).getTime() / 1000);
-  var weekAgo = +whatDate - 604800; // seconds in week
-  var weekFrom = +whatDate + 604800;
-    if (ts1 > weekAgo) {
-        document.getElementById("ago-beforeAfter-1").textContent = "after";
-      } else {
-        document.getElementById("ago-beforeAfter-1").textContent = "before";
-      }
-    if (ts2 > weekAgo) {
-        document.getElementById("ago-beforeAfter-2").textContent = "after";
-      } else {
-        document.getElementById("ago-beforeAfter-2").textContent = "before";
-      }
-    if (ts3 > weekAgo) {
-        document.getElementById("ago-beforeAfter-3").textContent = "after";
-      } else {
-        document.getElementById("ago-beforeAfter-3").textContent = "before";
-      }
-    if (ts1 > weekFrom) {
-        document.getElementById("from-beforeAfter-1").textContent = "after";
-      } else {
-        document.getElementById("from-beforeAfter-1").textContent = "before";
-      }
-    if (ts2 > weekFrom) {
-        document.getElementById("from-beforeAfter-2").textContent = "after";
-      } else {
-        document.getElementById("from-beforeAfter-2").textContent = "before";
-      }
-    if (ts3 > weekFrom) {
-        document.getElementById("from-beforeAfter-3").textContent = "after";
-      } else {
-        document.getElementById("from-beforeAfter-3").textContent = "before";
-      }
-});
-
-function toTimestamp(strDate){
- var datum = Date.parse(strDate);
- return datum/1000;
+// Loop through array, build div for each result. (segmentcampaignchanges.js)
+let text = "";
+segmentcampaignchanges.forEach(myFunction);
+document.getElementById("container").innerHTML = text;
+function myFunction(item, index) {
+  text += "<div class='flex-span' id=changelog-" + index + "><span class='who-when'><h3>Time/User</h3>"
+  + "<span id=when-" + index + ">" + item.When + "</span>"
+  + "<br><span id=user-" + index + ">" + item.User + "</span></span>"
+  + "<span><h3>Segment Triggers</h3><pre id=segmenttrigger-" + index + ">" + JSON.stringify(item.SegmentTrigger, null, 2) + "</pre></span>"
+  + "<span><h3>Filters</h3><pre id=filters-" + index + ">" + JSON.stringify(item.Filters, null, 2) + "</span></pre></span>"
+  + "<span><h3>Conversion Action</h3><span id=conversionaction-" + index + ">" + item.ConversionAction + "</span><br><br><h3>Conversion Window</h3><span id=conversionwindow-" + index + ">" + item.ConversionWindow + "</span><br><br><h3>Conversion Segment</h3><span class='changeConversionSegment'><pre id=conversionsegment-" + index + ">" + JSON.stringify(item.ConversionSegment, null, 2) + "</pre></span><br><br><h3>Exit Conditions</h3>ExitOnTriggerOrFilterNotMatched: <span id=exitontriggerorfilternotmatched-" + index + ">" + item.ExitOnTriggerOrFilterNotMatched + "</span><br>ExitOnConversionMatched: <span id=exitonconversionismatched-" + index + ">" + item.ExitOnConversionMatched + "</span><br>ExitOnlyAfterMessage: <span id=exitonlyaftermessage-" + index + ">" + item.ExitOnlyAfterMessage + "</span></span>"
+  + "</div>"; 
 }
 
-// Convert date to Unix todo: handle NaN/Undefined
-document.getElementById('tsconvert').addEventListener('input', function() {
-  var tsConvert = document.getElementById("tsconvert").value;
-  var tsConvertLocal = new Date(tsConvert.replace(/-/g,'/'));
-  var dateConvert = toTimestamp(tsConvertLocal);
-  // document.getElementById("date-converted").textContent = tsConvert + " = " ;
-  // document.getElementById("date-converted-unix").textContent = dateConvert;
-  document.getElementById("tscompare").value = dateConvert;
-  if (tsConvertLocal == "Invalid Date") {
-    document.getElementById("date-converted-unix").textContent = "select a valid date";
-  } else {
-    document.getElementById("date-converted-unix").textContent = dateConvert;
+// Improves the code mess at the bottom of file
+// Compare previous index to current, add highlight class if diff
+segmentcampaignchanges.forEach(myChanges);
+function myChanges(item, index, array) {
+  if (index != 0) {
+    if (JSON.stringify(segmentcampaignchanges[index - 1].When) != JSON.stringify(segmentcampaignchanges[index].When)) {
+  document.getElementById("when-" + index).className = " highlight";
+    }
+    if (JSON.stringify(segmentcampaignchanges[index - 1].User) != JSON.stringify(segmentcampaignchanges[index].User)) {
+    document.getElementById("user-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].SegmentTrigger) != JSON.stringify(segmentcampaignchanges[index].SegmentTrigger)) {
+    document.getElementById("segmenttrigger-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].Filters) != JSON.stringify(segmentcampaignchanges[index].Filters)) {
+    document.getElementById("filters-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionAction) != JSON.stringify(segmentcampaignchanges[index].ConversionAction)) {
+    document.getElementById("conversionaction-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionWindow) != JSON.stringify(segmentcampaignchanges[index].ConversionWindow)) {
+    document.getElementById("conversionwindow-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionSegment) != JSON.stringify(segmentcampaignchanges[index].ConversionSegment)) {
+    document.getElementById("conversionsegment-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnConversionMatched) != JSON.stringify(segmentcampaignchanges[index].ExitOnConversionMatched)) {
+    document.getElementById("exitonconversionismatched-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnTriggerOrFilterNotMatched) != JSON.stringify(segmentcampaignchanges[index].ExitOnTriggerOrFilterNotMatched)) {
+    document.getElementById("exitontriggerorfilternotmatched-" + index).className = " highlight";
+    };
+    if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnlyAfterMessage) != JSON.stringify(segmentcampaignchanges[index].ExitOnlyAfterMessage)) {
+    document.getElementById("exitonlyaftermessage-" + index).className = " highlight";
+    };
+  };
+  /*
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index]));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].When));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].User));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].SegmentTrigger));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].Filters));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ConversionAction));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ConversionWindow));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ConversionSegment));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ExitOnConversionMatched));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ExitOnTriggerOrFilterNotMatched));
+    console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].ExitOnlyAfterMessage));
+    for(const [index,value] of segmentcampaignchanges.entries()){
+      console.log(index,value);
+    }
+    console.log(JSON.stringify(segmentcampaignchanges));
+  */
+};
+
+// Highlight on click prototype
+// Need to loop through each value to compare
+document.getElementById('highlighter').addEventListener('click', function random() {
+   highlight($("#filters-1"), $("#filters-0"));
+  function highlight(newElem, oldElem){ 
+    var oldText = oldElem.text(),     
+        text = '';
+    newElem.text().split('').forEach(function(val, i){  // Find a way to stop at new line
+      if (val != oldText.charAt(i))
+        text += "<span class='highlight-2'>"+val+"</span>";  
+      else
+        text += val;            
+    });
+    newElem.html(text);
   }
 });
 
-// Convert seconds to weeks, days, hours, minutes, seconds
-function secondsToDhms(seconds) {
-  const date1 = dayjs('ts1')
-  date1.diff('tsnow', 'month') // 7
-  seconds = Number(seconds);
-  var w = Math.floor(seconds % (3600*24*31536000) / 604800);
-  var d = Math.floor(seconds % (3600*24*7) / 86400);
-  var h = Math.floor(seconds % (3600*24) / 3600);
-  var m = Math.floor(seconds % 3600 / 60);
-  var s = Math.floor(seconds % 60);
-  var wDisplay = w > 0 ? w + (w == 1 ? " week, " : " weeks, ") : "";
-  var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
-  var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-  var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-  var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
-  return (wDisplay + dDisplay + hDisplay + mDisplay + sDisplay).replace(/,\s*$/, "");
-};
-
-// Add or subtract day/week from compare timestamp
-$(function () {
-    $("#add-day").click(function () {
-      var identifyMe = document.getElementById("tscompare").value;
-      var numberMe = +identifyMe;
-      document.getElementById("tscompare").value = numberMe + 86400;
-    });
-    $("#sub-day").click(function () {
-      var identifyMe = document.getElementById("tscompare").value;
-      var numberMe = +identifyMe;
-      document.getElementById("tscompare").value = numberMe - 86400;
-    });
-    $("#add-week").click(function () {
-      var identifyMe = document.getElementById("tscompare").value;
-      var numberMe = +identifyMe;
-      document.getElementById("tscompare").value = numberMe + 604800;
-    });
-    $("#sub-week").click(function () {
-      var identifyMe = document.getElementById("tscompare").value;
-      var numberMe = +identifyMe;
-      document.getElementById("tscompare").value = numberMe - 604800;
-    });
-});
+/*
+// Don't look here. It worked just fine for the first POC...
+var filter0 = document.getElementById('filters-0').textContent;
+var filter1 = document.getElementById('filters-1').textContent;
+var filter2 = document.getElementById('filters-2').textContent;
+var filter3 = document.getElementById('filters-3').textContent;
+var filter4 = document.getElementById('filters-4').textContent;
+var when0 = document.getElementById('when-0').textContent;
+var when1 = document.getElementById('when-1').textContent;
+var when2 = document.getElementById('when-2').textContent;
+var when3 = document.getElementById('when-3').textContent;
+var when4 = document.getElementById('when-4').textContent;
+var user0 = document.getElementById('user-0').textContent;
+var user1 = document.getElementById('user-1').textContent;
+var user2 = document.getElementById('user-2').textContent;
+var user3 = document.getElementById('user-3').textContent;
+var user4 = document.getElementById('user-4').textContent;
+var seggmenttrigger0 = document.getElementById('segmenttrigger-0').textContent;
+var seggmenttrigger1 = document.getElementById('segmenttrigger-1').textContent;
+var seggmenttrigger2 = document.getElementById('segmenttrigger-2').textContent;
+var seggmenttrigger3 = document.getElementById('segmenttrigger-3').textContent;
+var seggmenttrigger4 = document.getElementById('segmenttrigger-4').textContent;
+var conversionaction0 = document.getElementById('conversionaction-0').textContent;
+var conversionaction1 = document.getElementById('conversionaction-1').textContent;
+var conversionaction2 = document.getElementById('conversionaction-2').textContent;
+var conversionaction3 = document.getElementById('conversionaction-3').textContent;
+var conversionaction4 = document.getElementById('conversionaction-4').textContent;
+var conversionwindow0 = document.getElementById('conversionwindow-0').textContent;
+var conversionwindow1 = document.getElementById('conversionwindow-1').textContent;
+var conversionwindow2 = document.getElementById('conversionwindow-2').textContent;
+var conversionwindow3 = document.getElementById('conversionwindow-3').textContent;
+var conversionwindow4 = document.getElementById('conversionwindow-4').textContent;
+var conversionsegment0 = document.getElementById('conversionsegment-0').textContent;
+var conversionsegment1 = document.getElementById('conversionsegment-1').textContent;
+var conversionsegment2 = document.getElementById('conversionsegment-2').textContent;
+var conversionsegment3 = document.getElementById('conversionsegment-3').textContent;
+var conversionsegment4 = document.getElementById('conversionsegment-4').textContent;
+var exitontriggerorfilternotmatched0 = document.getElementById('exitontriggerorfilternotmatched-0').textContent;
+var exitontriggerorfilternotmatched1 = document.getElementById('exitontriggerorfilternotmatched-1').textContent;
+var exitontriggerorfilternotmatched2 = document.getElementById('exitontriggerorfilternotmatched-2').textContent;
+var exitontriggerorfilternotmatched3 = document.getElementById('exitontriggerorfilternotmatched-3').textContent;
+var exitontriggerorfilternotmatched4 = document.getElementById('exitontriggerorfilternotmatched-4').textContent;
+var exitonconversionismatched0 = document.getElementById('exitonconversionismatched-0').textContent;
+var exitonconversionismatched1 = document.getElementById('exitonconversionismatched-1').textContent;
+var exitonconversionismatched2 = document.getElementById('exitonconversionismatched-2').textContent;
+var exitonconversionismatched3 = document.getElementById('exitonconversionismatched-3').textContent;
+var exitonconversionismatched4 = document.getElementById('exitonconversionismatched-4').textContent;
+var exitonlyaftermessage0 = document.getElementById('exitonlyaftermessage-0').textContent;
+var exitonlyaftermessage1 = document.getElementById('exitonlyaftermessage-1').textContent;
+var exitonlyaftermessage2 = document.getElementById('exitonlyaftermessage-2').textContent;
+var exitonlyaftermessage3 = document.getElementById('exitonlyaftermessage-3').textContent;
+var exitonlyaftermessage4 = document.getElementById('exitonlyaftermessage-4').textContent;
+if (filter0 != filter1) {
+  document.getElementById("filters-1").className = " highlight";
+  };
+if (filter1 != filter2) {
+  document.getElementById("filters-2").className = " highlight";
+  };
+if (filter2 != filter3) {
+  document.getElementById("filters-3").className = " highlight";
+  };
+if (filter3 != filter4) {
+  document.getElementById("filters-4").className = " highlight";
+  };
+if (when0 != when1) {
+  document.getElementById("when-1").className = " highlight";
+  };
+if (when1 != when2) {
+  document.getElementById("when-2").className = " highlight";
+  };
+if (when2 != when3) {
+  document.getElementById("when-3").className = " highlight";
+  };
+if (when3 != when4) {
+  document.getElementById("when-4").className = " highlight";
+  };
+if (user0 != user1) {
+  document.getElementById("user-1").className = " highlight";
+  };
+if (user1 != user2) {
+  document.getElementById("user-2").className = " highlight";
+  };
+if (user2 != user3) {
+  document.getElementById("user-3").className = " highlight";
+  };
+if (user3 != user4) {
+  document.getElementById("user-4").className = " highlight";
+  };
+if (seggmenttrigger0 != seggmenttrigger1) {
+  document.getElementById("segmenttrigger-1").className = " highlight";
+  };
+if (seggmenttrigger1 != seggmenttrigger2) {
+  document.getElementById("segmenttrigger-2").className = " highlight";
+  };
+if (seggmenttrigger2 != seggmenttrigger3) {
+  document.getElementById("segmenttrigger-3").className = " highlight";
+  };
+if (seggmenttrigger3 != seggmenttrigger4) {
+  document.getElementById("segmenttrigger-4").className = " highlight";
+  };
+if (conversionaction0 != conversionaction1) {
+  document.getElementById("conversionaction-1").className = " highlight";
+  };
+if (conversionaction1 != conversionaction2) {
+  document.getElementById("conversionaction-2").className = " highlight";
+  };
+if (conversionaction2 != conversionaction3) {
+  document.getElementById("conversionaction-3").className = " highlight";
+  };
+if (conversionaction3 != conversionaction4) {
+  document.getElementById("conversionaction-4").className = " highlight";
+  };
+if (conversionwindow0 != conversionwindow1) {
+  document.getElementById("conversionwindow-1").className = " highlight";
+  };
+if (conversionwindow1 != conversionwindow2) {
+  document.getElementById("conversionwindow-2").className = " highlight";
+  };
+if (conversionwindow2 != conversionwindow3) {
+  document.getElementById("conversionwindow-3").className = " highlight";
+  };
+if (conversionwindow3 != conversionwindow4) {
+  document.getElementById("conversionwindow-4").className = " highlight";
+  };
+if (conversionsegment0 != conversionsegment1) {
+  document.getElementById("conversionsegment-1").className = " highlight";
+  };
+if (conversionsegment1 != conversionsegment2) {
+  document.getElementById("conversionsegment-2").className = " highlight";
+  };
+if (conversionsegment2 != conversionsegment3) {
+  document.getElementById("conversionsegment-3").className = " highlight";
+  };
+if (conversionsegment3 != conversionsegment4) {
+  document.getElementById("conversionsegment-4").className = " highlight";
+  };
+if (exitontriggerorfilternotmatched0 != exitontriggerorfilternotmatched1) {
+  document.getElementById("exitontriggerorfilternotmatched-1").className = " highlight";
+  };
+if (exitontriggerorfilternotmatched1 != exitontriggerorfilternotmatched2) {
+  document.getElementById("exitontriggerorfilternotmatched-2").className = " highlight";
+  };
+if (exitontriggerorfilternotmatched2 != exitontriggerorfilternotmatched3) {
+  document.getElementById("exitontriggerorfilternotmatched-3").className = " highlight";
+  };
+if (exitontriggerorfilternotmatched3 != exitontriggerorfilternotmatched3) {
+  document.getElementById("exitontriggerorfilternotmatched-4").className = " highlight";
+  };
+if (exitonconversionismatched0 != exitonconversionismatched1) {
+  document.getElementById("exitonconversionismatched-1").className = " highlight";
+  };
+if (exitonconversionismatched1 != exitonconversionismatched2) {
+  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  };
+if (exitonconversionismatched2 != exitonconversionismatched3) {
+  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  };
+if (exitonconversionismatched3 != exitonconversionismatched4) {
+  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  };
+if (exitonlyaftermessage0 != exitonlyaftermessage1) {
+  document.getElementById("exitonlyaftermessage-1").className = " highlight";
+  };
+if (exitonlyaftermessage1 != exitonlyaftermessage2) {
+  document.getElementById("exitonlyaftermessage-2").className = " highlight";
+  };
+if (exitonlyaftermessage2 != exitonlyaftermessage3) {
+  document.getElementById("exitonlyaftermessage-3").className = " highlight";
+  };
+if (exitonlyaftermessage3 != exitonlyaftermessage4) {
+  document.getElementById("exitonlyaftermessage-4").className = " highlight";
+  };
+*/

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>ch-ch-changes - Segment Triggered Campaign</title>
+  <title>ch-ch-Changes - Diff</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,8 +13,8 @@
   <meta property="og:image" content="">
 
   <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="favicon.png">
-  <link rel="icon" type="image/x-icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="css/normalize.css">
@@ -25,26 +25,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500&display=swap" rel="stylesheet">
 
   <meta name="theme-color" content="#111">
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_utc)</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="js/segmentcampaignchanges.js"></script>
+  <script src="js/campaign-changes.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
   <header>
-    <h1>Proof of Concept: Segment Triggered Campaign Changelog</h1>
-    <h2>Shows changes to campaign triggers, filters, goals & exits</h2>
-    <p>Compares each changelog entry to the previous to find diff between the two.</p>
+    <h1>Diff between two JSONs</h1>
+    <p>Not working for deep nesting</p>
   </header>
-  <sup style=""><a type="button" id="highlighter">Highlight Changes</a> (Example trying to highlight specific changes)</sup>
-  <main id="container">
+  <main>
+    <div id="testing" class="flex-me-spaced-row fill-height">What's this?</div>
   </main>
   <footer>
   </footer>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/diff.js"></script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
 </body>
 </html>
