@@ -19,7 +19,7 @@ function myFunction(item, index) {
 // Improves the code mess at the bottom of file
 // Compare previous index to current, add highlight class if diff
 segmentcampaignchanges.forEach(myChanges);
-function myChanges(item, index, array) {
+function myChanges(item, index) {
   if (index != 0) {
     if (JSON.stringify(segmentcampaignchanges[index - 1].When) != JSON.stringify(segmentcampaignchanges[index].When)) {
   document.getElementById("when-" + index).className = " highlight";
@@ -74,7 +74,7 @@ function myChanges(item, index, array) {
 // Highlight on click prototype
 // Need to loop through each value to compare
 document.getElementById('highlighter').addEventListener('click', function random() {
-   highlight($("#filters-1"), $("#filters-0"));
+   highlight($("#filters-2"), $("#filters-0"));
   function highlight(newElem, oldElem){ 
     var oldText = oldElem.text(),     
         text = '';
