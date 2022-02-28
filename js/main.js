@@ -9,7 +9,8 @@ document.getElementById("sampledata").addEventListener('click', function random(
 document.getElementById('submit').addEventListener('click', function random() {
   const segmentcampaignchangesInput = document.getElementById("jsoninput").value;
   const segmentcampaignchanges = JSON.parse(segmentcampaignchangesInput);
-  console.log(segmentcampaignchanges);
+  //console.log(segmentcampaignchanges);
+  $("html, body").animate({ scrollTop: '525px' }, "medium");
 
   // Loop through array, build div for each result. (pulling from segmentcampaignchanges.js)
   let text = "";
