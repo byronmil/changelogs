@@ -182,7 +182,7 @@ pre {
   font-size: .85em;
 }
 a { 
-  color: #999;
+  color: #aaa;
   text-decoration: underline dashed;
   text-decoration-color: #6f90b6;
 }
@@ -221,6 +221,10 @@ h3 {
   color: #111;
   font-weight: 400;
   width: fit-content;
+}
+
+.highlight-2 {
+  background-color: transparent;
 }
 .flex-me {
   display: flex !important;

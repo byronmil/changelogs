@@ -74,6 +74,8 @@ function myChanges(item, index, array) {
 
 // Highligthing refinement -- highlights specific character differences
 document.getElementById('highlighter').addEventListener('click', function random() {
+  if (document.getElementById('highlighter').textContent === "Refine Highlight") {
+    document.getElementById('highlighter').textContent = "Disable Refine Highlight"
   /*
   // Adjusts background highlighting to better display character highlighting
   segmentcampaignchanges.forEach(removeClass);
@@ -104,7 +106,33 @@ document.getElementById('highlighter').addEventListener('click', function random
       }).join(''));
     }
   }
-})
+  }
+  else {
+    document.getElementById('highlighter').textContent = "Refine Highlight"
+    segmentcampaignchanges.forEach(removeClass);
+    function removeClass() {
+    var allElements = document.querySelectorAll(".highlight-1");
+    for(i=0; i<allElements.length; i++) { 
+      allElements[i].classList.add('highlight-2');
+    }
+  }
+  };
+});
+
+var elementPosition = $('#sticky').offset();
+$(window).scroll(function(){
+  if($(window).scrollTop() > elementPosition.top){
+  $('#sticky').css('position','fixed').css('top','0');
+  $('#sticky').css('background-color','#000').css('top','0');
+  $('#sticky').css('padding','.5em').css('top','0');
+  $('#sticky').css('border-bottom','2px solid #aaa').css('top','0');
+  } else { 
+  $('#sticky').css('position','static');
+  $('#sticky').css('background-color','initial').css('top','0');
+  $('#sticky').css('padding','initial').css('top','0');
+  $('#sticky').css('border-bottom','initial').css('top','0');
+  }
+});
 
 /*
 // Don't look here. It worked just fine for the first POC...
