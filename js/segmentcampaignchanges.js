@@ -928,7 +928,7 @@ const segmentcampaignchanges =
       ]
     },
     "ConversionAction": "Clicked",
-    "ConversionWindow": "192800s",
+    "ConversionWindow": "172800s",
     "ConversionSegment": {
       "segment": {
         "id": 84
