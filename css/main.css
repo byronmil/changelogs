@@ -152,6 +152,9 @@ span {
   min-width: 300px;
   overflow: hidden;
 }
+span.sticky {
+  min-width: initial;
+}
 #testing pre {
   padding: 1em 2em;
 }

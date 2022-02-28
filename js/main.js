@@ -5,6 +5,14 @@
 document.getElementById("sampledata").addEventListener('click', function random() {
   document.getElementById('jsoninput').value = JSON.stringify(segmentcampaignchangesSample, null, 2);
 });
+// Clear textarea
+document.getElementById("clear").addEventListener('click', function random() {
+  document.getElementById('jsoninput').value = "";
+});
+// Scroll to top
+document.getElementById("sticky-top").addEventListener('click', function random() {
+  $("html, body").animate({ scrollTop: '0' }, "fast");
+});
 
 document.getElementById('submit').addEventListener('click', function random() {
   const segmentcampaignchangesInput = document.getElementById("jsoninput").value;
@@ -119,18 +127,31 @@ document.getElementById('submit').addEventListener('click', function random() {
   });
 });
 
-// Sticky highlight button
+// Sticky highlight & to top button
 var elementPosition = $('#sticky').offset();
 $(window).scroll(function(){
   if($(window).scrollTop() > elementPosition.top){
+  $('#sticky').css('display','initial').css('top','0');
   $('#sticky').css('position','fixed').css('top','0');
+  $('#sticky').css('left','86px').css('top','0');
   $('#sticky').css('background-color','#000').css('top','0');
   $('#sticky').css('padding','.5em').css('top','0');
   $('#sticky').css('border-bottom','2px solid #aaa').css('top','0');
+  $('#sticky').css('z-index','2').css('top','0');
   } else { 
-  $('#sticky').css('position','static');
-  $('#sticky').css('background-color','initial').css('top','0');
-  $('#sticky').css('padding','initial').css('top','0');
-  $('#sticky').css('border-bottom','initial').css('top','0');
+  $('#sticky').css('display','none').css('top','0');
+  }
+});
+var elementPosition = $('#sticky-top').offset();
+$(window).scroll(function(){
+  if($(window).scrollTop() > elementPosition.top){
+  $('#sticky-top').css('display','initial').css('top','0');
+  $('#sticky-top').css('position','fixed').css('top','0');
+  $('#sticky-top').css('background-color','#000').css('top','0');
+  $('#sticky-top').css('padding','.5em').css('top','0');
+  $('#sticky-top').css('border-bottom','2px solid #aaa').css('top','0');
+  $('#sticky-top').css('z-index','2').css('top','0');
+  } else { 
+  $('#sticky-top').css('display','none').css('top','0');
   }
 });
