@@ -1,7 +1,7 @@
 // When importing, need to F&R curly brackets to include comma: i.e. "}{ for },{
 // wrap in [] to make array
 
-const segmentcampaignchanges =
+const segmentcampaignchanges-TEMP-DISABLED =
 [
   {
     "When": "2021-12-02 19:45:35 +0000 UTC",
