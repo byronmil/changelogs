@@ -75,12 +75,12 @@ function myChanges(item, index, array) {
 // Highligthing refinement -- highlights specific character differences
 document.getElementById('highlighter').addEventListener('click', function random() {
   /*
-  Removes background highlighting to better display character highlighting
+  // Adjusts background highlighting to better display character highlighting
   segmentcampaignchanges.forEach(removeClass);
   function removeClass() {
     var allElements = document.querySelectorAll(".highlight");
     for(i=0; i<allElements.length; i++) { 
-      allElements[i].classList.remove('highlight');
+      allElements[i].classList.add('highlight-less');
     }
   }
   */
