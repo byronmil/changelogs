@@ -1,6 +1,11 @@
 //  Todo:
 //    - Expand for other campaign-types
 
+// Have a scample
+document.getElementById("sampledata").addEventListener('click', function random() {
+  document.getElementById('jsoninput').value = JSON.stringify(segmentcampaignchangesSample, null, 2);
+});
+
 document.getElementById('submit').addEventListener('click', function random() {
   const segmentcampaignchangesInput = document.getElementById("jsoninput").value;
   const segmentcampaignchanges = JSON.parse(segmentcampaignchangesInput);
