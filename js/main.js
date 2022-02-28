@@ -16,43 +16,44 @@ function myFunction(item, index) {
   + "</div>"; 
 }
 
-// Improves the code mess at the bottom of file
-// Compare previous index to current, add highlight class if diff
+// Improves the original POC mess
+// If index > 0, compare index to previous and highlight on diff
 segmentcampaignchanges.forEach(myChanges);
-function myChanges(item, index) {
+function myChanges(item, index, array) {
   if (index != 0) {
     if (JSON.stringify(segmentcampaignchanges[index - 1].When) != JSON.stringify(segmentcampaignchanges[index].When)) {
-  document.getElementById("when-" + index).className = " highlight";
+  document.getElementById("when-" + index).className = "highlight";
     }
     if (JSON.stringify(segmentcampaignchanges[index - 1].User) != JSON.stringify(segmentcampaignchanges[index].User)) {
-    document.getElementById("user-" + index).className = " highlight";
+    document.getElementById("user-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].SegmentTrigger) != JSON.stringify(segmentcampaignchanges[index].SegmentTrigger)) {
-    document.getElementById("segmenttrigger-" + index).className = " highlight";
+    document.getElementById("segmenttrigger-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].Filters) != JSON.stringify(segmentcampaignchanges[index].Filters)) {
-    document.getElementById("filters-" + index).className = " highlight";
+    document.getElementById("filters-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionAction) != JSON.stringify(segmentcampaignchanges[index].ConversionAction)) {
-    document.getElementById("conversionaction-" + index).className = " highlight";
+    document.getElementById("conversionaction-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionWindow) != JSON.stringify(segmentcampaignchanges[index].ConversionWindow)) {
-    document.getElementById("conversionwindow-" + index).className = " highlight";
+    document.getElementById("conversionwindow-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ConversionSegment) != JSON.stringify(segmentcampaignchanges[index].ConversionSegment)) {
-    document.getElementById("conversionsegment-" + index).className = " highlight";
+    document.getElementById("conversionsegment-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnConversionMatched) != JSON.stringify(segmentcampaignchanges[index].ExitOnConversionMatched)) {
-    document.getElementById("exitonconversionismatched-" + index).className = " highlight";
+    document.getElementById("exitonconversionismatched-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnTriggerOrFilterNotMatched) != JSON.stringify(segmentcampaignchanges[index].ExitOnTriggerOrFilterNotMatched)) {
-    document.getElementById("exitontriggerorfilternotmatched-" + index).className = " highlight";
+    document.getElementById("exitontriggerorfilternotmatched-" + index).className = "highlight";
     };
     if (JSON.stringify(segmentcampaignchanges[index - 1].ExitOnlyAfterMessage) != JSON.stringify(segmentcampaignchanges[index].ExitOnlyAfterMessage)) {
-    document.getElementById("exitonlyaftermessage-" + index).className = " highlight";
+    document.getElementById("exitonlyaftermessage-" + index).className = "highlight";
     };
   };
   /*
+    See outputs for testing
     console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index]));
     console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].When));
     console.log("index 0: " + JSON.stringify(segmentcampaignchanges[index].User));
@@ -71,22 +72,39 @@ function myChanges(item, index) {
   */
 };
 
-// Highlight on click prototype
-// Need to loop through each value to compare
+// Highligthing refinement -- highlights specific character differences
 document.getElementById('highlighter').addEventListener('click', function random() {
-   highlight($("#filters-2"), $("#filters-0"));
-  function highlight(newElem, oldElem){ 
-    var oldText = oldElem.text(),     
-        text = '';
-    newElem.text().split('').forEach(function(val, i){  // Find a way to stop at new line
-      if (val != oldText.charAt(i))
-        text += "<span class='highlight-2'>"+val+"</span>";  
-      else
-        text += val;            
-    });
-    newElem.html(text);
+  /*
+  Removes background highlighting to better display character highlighting
+  segmentcampaignchanges.forEach(removeClass);
+  function removeClass() {
+    var allElements = document.querySelectorAll(".highlight");
+    for(i=0; i<allElements.length; i++) { 
+      allElements[i].classList.remove('highlight');
+    }
   }
-});
+  */
+  segmentcampaignchanges.forEach(myHighlighter);
+  function myHighlighter(item, index) {
+    highlight($("#when-" + (index + 1)), $("#when-" + index));
+    highlight($("#user-" + (index + 1)), $("#user-" + index));
+    highlight($("#segmenttrigger-" + (index + 1)), $("#segmenttrigger-" + index));
+    highlight($("#filters-" + (index + 1)), $("#filters-" + index));
+    highlight($("#conversionaction-" + (index + 1)), $("#conversionaction-" + index));
+    highlight($("#conversionwindow-" + (index + 1)), $("#conversionwindow-" + index));
+    highlight($("#conversionsegment-" + (index + 1)), $("#conversionsegment-" + index));
+    highlight($("#exitontriggerorfilternotmatched-" + (index + 1)), $("#exitontriggerorfilternotmatched-" + index));
+    highlight($("#exitonconversionismatched-" + (index + 1)), $("#exitonconversionismatched-" + index));
+    highlight($("#exitonlyaftermessage-" + (index + 1)), $("#exitonlyaftermessage-" + index));
+  function highlight(newElem, oldElem){ 
+      newElem.html(newElem.text().split('').map(function(val, i){
+        return val != oldElem.text().charAt(i) ?
+          "<span class='highlight-1'>"+val+"</span>" : 
+          val;
+      }).join(''));
+    }
+  }
+})
 
 /*
 // Don't look here. It worked just fine for the first POC...
@@ -141,123 +159,123 @@ var exitonlyaftermessage2 = document.getElementById('exitonlyaftermessage-2').te
 var exitonlyaftermessage3 = document.getElementById('exitonlyaftermessage-3').textContent;
 var exitonlyaftermessage4 = document.getElementById('exitonlyaftermessage-4').textContent;
 if (filter0 != filter1) {
-  document.getElementById("filters-1").className = " highlight";
+  document.getElementById("filters-1").className = "highlight";
   };
 if (filter1 != filter2) {
-  document.getElementById("filters-2").className = " highlight";
+  document.getElementById("filters-2").className = "highlight";
   };
 if (filter2 != filter3) {
-  document.getElementById("filters-3").className = " highlight";
+  document.getElementById("filters-3").className = "highlight";
   };
 if (filter3 != filter4) {
-  document.getElementById("filters-4").className = " highlight";
+  document.getElementById("filters-4").className = "highlight";
   };
 if (when0 != when1) {
-  document.getElementById("when-1").className = " highlight";
+  document.getElementById("when-1").className = "highlight";
   };
 if (when1 != when2) {
-  document.getElementById("when-2").className = " highlight";
+  document.getElementById("when-2").className = "highlight";
   };
 if (when2 != when3) {
-  document.getElementById("when-3").className = " highlight";
+  document.getElementById("when-3").className = "highlight";
   };
 if (when3 != when4) {
-  document.getElementById("when-4").className = " highlight";
+  document.getElementById("when-4").className = "highlight";
   };
 if (user0 != user1) {
-  document.getElementById("user-1").className = " highlight";
+  document.getElementById("user-1").className = "highlight";
   };
 if (user1 != user2) {
-  document.getElementById("user-2").className = " highlight";
+  document.getElementById("user-2").className = "highlight";
   };
 if (user2 != user3) {
-  document.getElementById("user-3").className = " highlight";
+  document.getElementById("user-3").className = "highlight";
   };
 if (user3 != user4) {
-  document.getElementById("user-4").className = " highlight";
+  document.getElementById("user-4").className = "highlight";
   };
 if (seggmenttrigger0 != seggmenttrigger1) {
-  document.getElementById("segmenttrigger-1").className = " highlight";
+  document.getElementById("segmenttrigger-1").className = "highlight";
   };
 if (seggmenttrigger1 != seggmenttrigger2) {
-  document.getElementById("segmenttrigger-2").className = " highlight";
+  document.getElementById("segmenttrigger-2").className = "highlight";
   };
 if (seggmenttrigger2 != seggmenttrigger3) {
-  document.getElementById("segmenttrigger-3").className = " highlight";
+  document.getElementById("segmenttrigger-3").className = "highlight";
   };
 if (seggmenttrigger3 != seggmenttrigger4) {
-  document.getElementById("segmenttrigger-4").className = " highlight";
+  document.getElementById("segmenttrigger-4").className = "highlight";
   };
 if (conversionaction0 != conversionaction1) {
-  document.getElementById("conversionaction-1").className = " highlight";
+  document.getElementById("conversionaction-1").className = "highlight";
   };
 if (conversionaction1 != conversionaction2) {
-  document.getElementById("conversionaction-2").className = " highlight";
+  document.getElementById("conversionaction-2").className = "highlight";
   };
 if (conversionaction2 != conversionaction3) {
-  document.getElementById("conversionaction-3").className = " highlight";
+  document.getElementById("conversionaction-3").className = "highlight";
   };
 if (conversionaction3 != conversionaction4) {
-  document.getElementById("conversionaction-4").className = " highlight";
+  document.getElementById("conversionaction-4").className = "highlight";
   };
 if (conversionwindow0 != conversionwindow1) {
-  document.getElementById("conversionwindow-1").className = " highlight";
+  document.getElementById("conversionwindow-1").className = "highlight";
   };
 if (conversionwindow1 != conversionwindow2) {
-  document.getElementById("conversionwindow-2").className = " highlight";
+  document.getElementById("conversionwindow-2").className = "highlight";
   };
 if (conversionwindow2 != conversionwindow3) {
-  document.getElementById("conversionwindow-3").className = " highlight";
+  document.getElementById("conversionwindow-3").className = "highlight";
   };
 if (conversionwindow3 != conversionwindow4) {
-  document.getElementById("conversionwindow-4").className = " highlight";
+  document.getElementById("conversionwindow-4").className = "highlight";
   };
 if (conversionsegment0 != conversionsegment1) {
-  document.getElementById("conversionsegment-1").className = " highlight";
+  document.getElementById("conversionsegment-1").className = "highlight";
   };
 if (conversionsegment1 != conversionsegment2) {
-  document.getElementById("conversionsegment-2").className = " highlight";
+  document.getElementById("conversionsegment-2").className = "highlight";
   };
 if (conversionsegment2 != conversionsegment3) {
-  document.getElementById("conversionsegment-3").className = " highlight";
+  document.getElementById("conversionsegment-3").className = "highlight";
   };
 if (conversionsegment3 != conversionsegment4) {
-  document.getElementById("conversionsegment-4").className = " highlight";
+  document.getElementById("conversionsegment-4").className = "highlight";
   };
 if (exitontriggerorfilternotmatched0 != exitontriggerorfilternotmatched1) {
-  document.getElementById("exitontriggerorfilternotmatched-1").className = " highlight";
+  document.getElementById("exitontriggerorfilternotmatched-1").className = "highlight";
   };
 if (exitontriggerorfilternotmatched1 != exitontriggerorfilternotmatched2) {
-  document.getElementById("exitontriggerorfilternotmatched-2").className = " highlight";
+  document.getElementById("exitontriggerorfilternotmatched-2").className = "highlight";
   };
 if (exitontriggerorfilternotmatched2 != exitontriggerorfilternotmatched3) {
-  document.getElementById("exitontriggerorfilternotmatched-3").className = " highlight";
+  document.getElementById("exitontriggerorfilternotmatched-3").className = "highlight";
   };
 if (exitontriggerorfilternotmatched3 != exitontriggerorfilternotmatched3) {
-  document.getElementById("exitontriggerorfilternotmatched-4").className = " highlight";
+  document.getElementById("exitontriggerorfilternotmatched-4").className = "highlight";
   };
 if (exitonconversionismatched0 != exitonconversionismatched1) {
-  document.getElementById("exitonconversionismatched-1").className = " highlight";
+  document.getElementById("exitonconversionismatched-1").className = "highlight";
   };
 if (exitonconversionismatched1 != exitonconversionismatched2) {
-  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  document.getElementById("exitonconversionismatched-2").className = "highlight";
   };
 if (exitonconversionismatched2 != exitonconversionismatched3) {
-  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  document.getElementById("exitonconversionismatched-2").className = "highlight";
   };
 if (exitonconversionismatched3 != exitonconversionismatched4) {
-  document.getElementById("exitonconversionismatched-2").className = " highlight";
+  document.getElementById("exitonconversionismatched-2").className = "highlight";
   };
 if (exitonlyaftermessage0 != exitonlyaftermessage1) {
-  document.getElementById("exitonlyaftermessage-1").className = " highlight";
+  document.getElementById("exitonlyaftermessage-1").className = "highlight";
   };
 if (exitonlyaftermessage1 != exitonlyaftermessage2) {
-  document.getElementById("exitonlyaftermessage-2").className = " highlight";
+  document.getElementById("exitonlyaftermessage-2").className = "highlight";
   };
 if (exitonlyaftermessage2 != exitonlyaftermessage3) {
-  document.getElementById("exitonlyaftermessage-3").className = " highlight";
+  document.getElementById("exitonlyaftermessage-3").className = "highlight";
   };
 if (exitonlyaftermessage3 != exitonlyaftermessage4) {
-  document.getElementById("exitonlyaftermessage-4").className = " highlight";
+  document.getElementById("exitonlyaftermessage-4").className = "highlight";
   };
 */
