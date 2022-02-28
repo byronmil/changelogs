@@ -1,7 +1,7 @@
 //  Todo:
 //    - Expand for other campaign-types
 
-// Have a scample
+// Have a sample
 document.getElementById("sampledata").addEventListener('click', function random() {
   document.getElementById('jsoninput').value = JSON.stringify(segmentcampaignchangesSample, null, 2);
 });
@@ -127,13 +127,13 @@ document.getElementById('submit').addEventListener('click', function random() {
   });
 });
 
-// Sticky highlight & to top button
+// Sticky highlight & to top buttons
 var elementPosition = $('#sticky').offset();
 $(window).scroll(function(){
   if($(window).scrollTop() > elementPosition.top){
   $('#sticky').css('display','initial').css('top','0');
   $('#sticky').css('position','fixed').css('top','0');
-  $('#sticky').css('left','86px').css('top','0');
+  $('#sticky').css('left','5.45em').css('top','0');
   $('#sticky').css('background-color','#000').css('top','0');
   $('#sticky').css('padding','.5em').css('top','0');
   $('#sticky').css('border-bottom','2px solid #aaa').css('top','0');
@@ -147,6 +147,7 @@ $(window).scroll(function(){
   if($(window).scrollTop() > elementPosition.top){
   $('#sticky-top').css('display','initial').css('top','0');
   $('#sticky-top').css('position','fixed').css('top','0');
+  $('#sticky-top').css('left','1.5em').css('top','0');
   $('#sticky-top').css('background-color','#000').css('top','0');
   $('#sticky-top').css('padding','.5em').css('top','0');
   $('#sticky-top').css('border-bottom','2px solid #aaa').css('top','0');

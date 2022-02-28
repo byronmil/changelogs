@@ -34,15 +34,17 @@
 
 <body>
   <header>
-    <h1>Proof of Concept: Segment Triggered Campaign Changelog</h1>
-    <h2>Changelog visualizer for campaign triggers, filters, goals & exits</h2>
-    <p>Compares each entry to the previous & finds diffs between the two</p>
-    <span class="sticky" id="sticky" style="display: none;"><a type="button" id="highlighter">Refine Highlight</a></span>
-    <span class="sticky" id="sticky-top" style="display: none;"><a type="button" id="highlighter">To Top</a></span>
+    <div>
+      <h1>Proof of Concept: Segment Triggered Campaign Changelog</h1>
+      <h2>Changelog visualizer for campaign triggers, filters, goals & exits</h2>
+      <p>Compares each entry to the previous & finds diffs between the two</p>
+      <span class="sticky" id="sticky" style="display: none;"><a type="button" id="highlighter">Refine Highlight</a></span>
+      <span class="sticky" id="sticky-top" style="display: none;"><a type="button" id="highlighter">To Top</a></span>
+    </div>
   </header>
   <section>
     <form>
-    <h3>Input valid JSON<br><sub>(Make it an array)</sub></h3>
+    <h3>Input valid JSON<br><sup>(Make it an array)</sup></h3>
     <a type="button" id="sampledata">Sample Data</a> &nbsp;|&nbsp; <a type="button" id="clear">Clear</a><br>
     <textarea id="jsoninput"></textarea>
     <br>

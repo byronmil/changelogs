@@ -1,3 +1,10 @@
+// Sample data
+// When copied from terminal output:
+//    1. Need to wrap in [] to build array
+//    2. Add commas after each object (between quotes below)
+//        Find: "}\n  {"
+//        Replace: "},\n  {"
+// Build workarounds into textarea submit
 const segmentcampaignchangesSample =
 [
   {

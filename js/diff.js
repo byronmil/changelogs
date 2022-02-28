@@ -1,4 +1,4 @@
-// IDK https://stackoverflow.com/questions/42501381/compare-two-json-objects-and-just-return-another-json-object-with-only-the-chang
+// IDK wtf this is doing: https://stackoverflow.com/questions/42501381/compare-two-json-objects-and-just-return-another-json-object-with-only-the-chang
 // Doesn't work for deep nesting
 function getDifference(o1, o2) {
   var diff = {};
