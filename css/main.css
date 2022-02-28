@@ -231,30 +231,6 @@ h3 {
 .highlight-2 {
   background-color: transparent;
 }
-.flex-me {
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 1em;
-  padding: 0 1em .25em;
-}
-
-.flex-me-spaced-row {
-  display:  flex;
-  flex-direction: row;
-  gap: .5em;
-  justify-content: space-evenly;
-  padding: 0 1em .5em;
-}
-.flex-me-spaced {
-  display:  flex;
-  flex-direction: column;
-  gap: 1em;
-  justify-content: space-between;
-  padding: 0 1em .5em;
-}
-.flex-me-spaced a, sub {
-  color: #aaa;
-}
 sup {
   color: #aaa;
 }
